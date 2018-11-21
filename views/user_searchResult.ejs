@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>user_searchResult</title>
+  <style>
+    html,
+    body,
+    table,
+    tr {
+      width: 100%;
+      height: 100%;
+      margin: 0 0 0 0;
+      border: 0 0 0 0;
+      padding: 0 0 0 0;
+      text-align: center;
+    }
+
+    div {
+      width: 100%;
+      height: 15%;
+    }
+
+    .storeId {
+      font-size: 0.5em
+    }
+
+    .profileImg {
+      border: 1px solid gold;
+      border-radius: 100px;
+    }
+
+    .imgContainer {
+      width: 25%;
+    }
+
+    .clickable:active {
+      background-color: darkgray;
+    }
+
+    .nameContainer {
+      width: 50%;
+    }
+  </style>
+  <script>
+  </script>
+</head>
+
+<body>
+  <%if(!isStore){%>
+    <h2>검색 결과가 없습니다!</h2>
+    <%} else {
+    for(var i = 0; i < contents.length; i++){%>
+      <div>
+        <table class="clickable" onclick=location.href='<%=storeUrl%>/<%=contents[i].owner_auth%>'>
+          <tr>
+            <td class="imgContainer profileImg" id="img" style="background: url(<%=contents[i].image_url%>) no-repeat; background-size: cover; background-position: center;"></td>
+            <td class="nameContainer"><span><%=contents[i].store%></span><br><span class="storeId"><%=contents[i].owner_id%></span></td>
+            <td><iframe src="<%=followBtnUrl%>/<%=contents[i].owner_auth%>" frameborder="0" marginwidth="0" marginheight="0" style="width: 100px; height: 65px;"></iframe></td>
+          </tr>
+        </table>
+      </div>
+      <%}
+  }%>
+</body>
+
+</html>

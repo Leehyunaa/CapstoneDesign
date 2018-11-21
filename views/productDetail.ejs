@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <title>productDetail</title>
+  <style>
+    html,
+    form,
+    tbody,
+    body,
+    iframe {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    table,
+    div {
+      width: 100%;
+    }
+
+    tr {
+      text-align: center;
+      display: table-row;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    td {
+      margin: 0;
+      padding: 0;
+    }
+
+    .store {
+      text-align: center;
+      border-bottom: 1px solid BLACK;
+    }
+    .header {
+      text-align: center;
+      background-color: #3498DB;
+      font-size: 1.5em;
+      color: white;
+      font-family: Jeju Hallasan;
+      height: 8%;
+      line-height: 250%;
+      text-align: center;
+    }
+
+    .backBtn {
+      position: absolute;
+      top: 15px;
+      left: 10px;
+    }
+
+    .logoutBtn{
+      position: absolute;
+      top: 15px;
+      right: 10px;
+    }
+
+    @font-face {
+      font-family: 'Jeju Hallasan';
+      font-style: normal;
+      font-weight: 400;
+      src: url(//fonts.gstatic.com/ea/jejuhallasan/v3/JejuHallasan-Regular.eot);
+      src: url(//fonts.gstatic.com/ea/jejuhallasan/v3/JejuHallasan-Regular.eot?#iefix) format('embedded-opentype'),
+      url(//fonts.gstatic.com/ea/jejuhallasan/v3/JejuHallasan-Regular.woff2) format('woff2'),
+      url(//fonts.gstatic.com/ea/jejuhallasan/v3/JejuHallasan-Regular.woff) format('woff'),
+      url(//fonts.gstatic.com/ea/jejuhallasan/v3/JejuHallasan-Regular.ttf) format('truetype');
+    }
+
+    .info {
+      background-color: white;
+    }
+
+    .floating-input {
+      display: block;
+      width: 100%;
+    }
+
+    .floating-input label {
+      position: absolute;
+      font-family: Roboto, arial, sans-serif;
+      color: #757575;
+      font-size: 18px;
+      margin-top: -30px;
+      transition: all .2s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: text;
+      margin-left: 0;
+      display: block;
+    }
+
+    .floating-input input {
+      border: none;
+      border-bottom: 1px solid #757575;
+      outline: none;
+      width: 100%;
+      padding: 5px 0;
+      font-size: 18px;
+      transition: all .2s cubic-bezier(0.4, 0, 0.2, 1);
+      background-color: transparent;
+    }
+
+    .floating-input input:valid+label {
+      margin-top: -50px;
+      font-size: 12px;
+      color: #555555;
+    }
+
+    .floating-input input:focus {
+      border-bottom: 1px solid #2A9AF2;
+      box-shadow: 0px 1px 0px 0px #2A9AF2;
+    }
+
+    .floating-input input:focus+label {
+      margin-top: -50px !important;
+      color: #2A9AF2 !important;
+      font-size: 12px !important;
+    }
+
+    .input-button>input[type="submit"] {
+      background-color: #2A9AF2;
+      border: none;
+      color: #FFFFFF;
+      border-radius: 3px;
+      width: 100px;
+      box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
+      padding: 10px;
+      margin: 0 auto;
+      display: block;
+      cursor: pointer;
+      outline: none;
+      transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    input[type="submit"]:hover {
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    }
+
+    .input-button {
+      width: 100px;
+      margin: 0 auto;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .input-button:active {
+      transform: translate(0px, 5px);
+      -webkit-transform: translate(0px, 5px); //border-bottom: 1px solid;
+    }
+
+    .ripple-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .ripple {
+      background-color: rgba(255, 255, 255, .6);
+      position: absolute;
+      z-index: 10;
+      border-radius: 100%;
+      animation-name: ripple;
+      animation-iteration-count: 1;
+      animation-duration: .55s;
+      width: 10px;
+      height: 10px;
+      transform: translateX(-50%) translateY(-50%);
+      pointer-events: none;
+      animation-timing-function: linear;
+    }
+
+    @keyframes ripple {
+      from {
+        width: 0;
+        height: 0;
+        opacity: 1;
+      }
+      to {
+        width: 300px;
+        height: 300px;
+        opacity: 0;
+      }
+    }
+    .nonVisible {
+      position: absolute;
+      opacity: 0;
+    }
+  </style>
+  <script>
+    function setSize(e) {
+      e.style.width = window.innerWidth + 'px';
+    }
+
+    function setSize2() {
+      var img = getElementById('img');
+      img.style.width = window.innerWidth + 'px';
+    }
+    window.onload = function() {
+      setSize2();
+      window.addEventListener('resize', setSize2);
+    }
+  </script>
+</head>
+
+<body>
+  <%if(isOwner == 1){%>
+  <div class="header">
+    <span onclick=location.href="<%=storeMainUrl%>"><%=contents.store%></span>
+  </div>
+  <img class="backBtn" id="backBtn" src="/iconmonstr-arrow-64-24.png" onclick="back();">
+  <img class="logoutBtn" id="logoutBtn" src="/iconmonstr-log-out-9-24.png" onclick=location.href='<%=logoutUrl%>'>
+
+  <script type="text/javascript">
+    setTimeout(function() {
+      var trash = document.getElementById('sa-extension-is-installed');
+      var body = document.getElementById('body');
+      //body.removeChild(trash);
+      trash.parentNode.removeChild(trash);
+      clearTimeout();
+    }, 10);
+    function back() {
+      var frame = document.getElementById('timelineBigFrame');
+      history.back();
+    }
+
+    function logout() {
+      location.href = '<%=logoutUrl%>';
+    }
+
+    function setSize(e) {
+      e.style.width = window.innerWidth + 'px';
+    }
+  </script>
+  <%}%>
+  <table>
+    <tr>
+      <td colspan="3">
+        <div class="store">판매품목</div>
+      </td>
+    </tr>
+  </table>
+  <div><img id="img" src='<%=contents.product_imgUrl%>' width="100%"></div>
+  <div class="info">
+    <h2><%=contents.product%></h2>
+    <h3><%=contents.price%>원</h3>
+    <table>
+    <%if(isOwner == 1) {
+      if(contents.sale != null){
+        var formAction = deleteBargain;
+      } else {
+        formAction = writeBargain;
+      }%>
+      <form action="<%=formAction%>" method="post">
+        <input class="nonVisible" type="text" name="owner_auth" value="<%=contents.owner_auth%>"/>
+        <input class="nonVisible" type="number" name="number" value="<%=contents.number%>"/>
+      <%if(contents.sale != null) {%>
+      <tr>
+        <td>
+          <h3>
+            Event : <%=contents.sale%>
+          </h3>
+        </td>
+        <td>
+          <div class="input-button">
+            <input type="submit" value="이벤트 종료" />
+            <div class="ripple-container"></div>
+          </div>
+        </td>
+      </tr>
+      <%} else {%>
+      <tr>
+        <td>
+          <div class="floating-input">
+            <input required id='bargain' type="text" name="bargain" />
+            <label for="bargain">이벤트 정보</label>
+          </div>
+        </td>
+        <td>
+          <div class="input-button">
+            <input type="submit" value="등록" />
+            <div class="ripple-container"></div>
+          </div>
+        </td>
+      </tr>
+      <%}%>
+      </form>
+    <%} else {
+      if(contents.sale != null) {%>
+      <tr>
+        <td>
+          <h3>
+            Event : <%=contents.sale%>
+          </h3>
+        </td>
+      </tr>
+      <%}
+    }%>
+    </table>
+  </div>
+</body>
+</html>

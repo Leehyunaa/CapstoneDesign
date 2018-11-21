@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="kr" dir="ltr">
+
+<head>
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+  <meta charset="UTF-8">
+  <title>review_reviewListContainer</title>
+  <style>
+    html,
+    form,
+    body,
+    iframe {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    table,
+    tbody {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    td,
+    h1,
+    h2,
+    h4 {
+      margin: 0;
+      padding: 0;
+    }
+    .userId {
+      font-size: 0.5em;
+    }
+    .reviewRow {
+      border-bottom: 1px solid black;
+    }
+  </style>
+</head>
+
+<body>
+  <table>
+    <%for (var i = 0; i < contents.length; i++) {%>
+    <tr class="reviewRow" onclick="parent.change_parent_url('<%=reviewDetailUrl%>/<%=i%>');">
+      <td class="user">
+        <span class="userName"><%=contents[i].name%></span><br>
+        <span class="userId"><%=contents[i].user_id%></span>
+      </td>
+      <td style="width: 15%; font-size:0.6em;">
+        <%for (var j = 0; j < contents[i].score; j++) {%>
+        <span style="color:yellow;">★</span>
+        <%}
+        for (var j = 5; j > contents[i].score; j--) {%>
+        <span style="color:#ccc;">★</span>
+        <%}%>
+      </td>
+      <td>
+        <div>장점: <%=contents[i].good%></div>
+        <div>단점: <%=contents[i].bad%></div>
+      </td>
+    </tr>
+    <%}%>
+  </table>
+</body>
+
+</html>

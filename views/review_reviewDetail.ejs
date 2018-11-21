@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <style>
+    html,
+    form,
+    body,
+    iframe {
+      height: 99%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    table,
+    tbody {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    td,
+    h1,
+    h2,
+    h4 {
+      margin: 0;
+      padding: 0;
+    }
+
+    .store {
+      text-align: center;
+      border-bottom: 1px solid BLACK;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+
+    .header {
+      text-align: center;
+      background-color: #3498DB;
+      font-size: 20px;
+      color: white;
+      font-family: sans-serif;
+      font-weight: bold;
+      height: 8%;
+    }
+
+    .title {
+      background-color: #3498DB;
+      color: white;
+      text-align: center;
+      font-family: Jeju Hallasan;
+      font-size: 1.5em;
+    }
+
+    .notice {
+      border-bottom: 1px solid black;
+      text-align: center;
+    }
+
+    @font-face {
+      font-family: 'Jeju Hallasan';
+      font-style: normal;
+      font-weight: 400;
+      src: url(//fonts.gstatic.com/ea/jejuhallasan/v3/JejuHallasan-Regular.eot);
+      src: url(//fonts.gstatic.com/ea/jejuhallasan/v3/JejuHallasan-Regular.eot?#iefix) format('embedded-opentype'),
+      url(//fonts.gstatic.com/ea/jejuhallasan/v3/JejuHallasan-Regular.woff2) format('woff2'),
+      url(//fonts.gstatic.com/ea/jejuhallasan/v3/JejuHallasan-Regular.woff) format('woff'),
+      url(//fonts.gstatic.com/ea/jejuhallasan/v3/JejuHallasan-Regular.ttf) format('truetype');
+    }
+
+    .backBtn {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      top: 15px;
+      left: 10px;
+    }
+
+    .logoutBtn{
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      top: 15px;
+      right: 10px;
+    }
+  </style>
+
+  <script type="text/javascript">
+    setTimeout(function() {
+      var trash = document.getElementById('sa-extension-is-installed');
+      var body = document.getElementById('body');
+      body.removeChild(trash);
+      clearTimeout();
+    }, 50);
+    onload = function() {
+      var starContainer = document.getElementById('starContainer');
+      for (var j = 0; j < <%=contents.score%>; j++) {
+        var starTag = document.createElement('span');
+        var starText = document.createTextNode("★");
+        starTag.style = 'color: yellow; font-size: 3em';
+        starContainer.appendChild(starTag).appendChild(starText);
+      }
+      for (var j = 5; j > <%=contents.score%>; j--) {
+        var starTag = document.createElement('span');
+        var starText = document.createTextNode("★");
+        starTag.style = 'color: #ccc';
+        starContainer.appendChild(starTag).appendChild(starText);
+      }
+    }
+
+    function back() {
+      var frame = document.getElementById('timelineBigFrame');
+      history.back();
+    }
+
+    function logout() {
+      location.href = '<%=logoutUrl%>';
+    }
+  </script>
+</head>
+
+<body id="body">
+  <table>
+    <%if(isOwner == 1){%>
+    <img class="backBtn" id="backBtn" src="/iconmonstr-arrow-64-24.png" onclick="back();">
+    <img class="logoutBtn" id="logoutBtn" src="/iconmonstr-log-out-9-24.png" onclick=location.href='<%=logoutUrl%>'>
+    <%}%>
+    <tr class="title" style="height: 8%;">
+      <td>
+        <span onclick=location.href="<%=storeMainUrl%>"><%=contents.store%></span>
+      </td>
+    </tr>
+    <tr style="height : 4%; border-bottom: 1px solid black;">
+      <td class="notice">리뷰</td>
+    </tr>
+    <tr style="height : 10% ">
+      <td>
+        <h2><%=contents.name%></h2>
+        <span><%=contents.user_id%></span>
+      </td>
+    </tr>
+    <tr style="height : 10%">
+      <td id="starContainer">
+      </td>
+    </tr>
+    <tr style="height : 15%;">
+      <td>
+        <div style="height: 100%; overflow:scroll; font-size: 1.5em;">
+          장점 : <%=contents.good%><br>
+          단점 : <%=contents.bad%>
+        </div>
+      </td>
+    </tr>
+    <tr class="image" style="height : auto;">
+      <td><img href="<%=contents.image%>"></td>
+    </tr>
+  </table>
+</body>
+
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <title>product</title>
+  <style>
+    html,
+    form,
+    tbody,
+    body,
+    div,
+    iframe {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      border: 0;
+    }
+    body {
+      width: 99.9%;
+    }
+
+    table {
+      width: 100%;
+    }
+
+    tr {
+      text-align: center;
+      display: table-row;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .product {
+      margin: 0;
+      padding: 0;
+      border: 1px solid #3498DB;
+      width: 33%;
+    }
+    .db-btn {
+      display: inline-block;
+      padding: 0em 2.8em;
+      border-radius: .25em;
+      background: transparent;
+      outline: 0;
+      vertical-align: middle;
+      text-decoration: none;
+      white-space: nowrap;
+      cursor: pointer;
+      user-select: none;
+      border: none;
+      box-shadow: none;
+      font-family: 'Open Sans', sans-serif;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 300;
+      letter-spacing: 0.4px;
+      text-align: center;
+      width: 50%;
+
+    }
+    .db-btn.h48 {
+      height: 48px;
+    }
+    .db-btn.blue {
+      background-color: #049bfa;
+    }
+    .db-btn.blue:hover {
+      background-color: #028cf5;
+    }
+    .db-btn.blue:active {
+      background-color: #0260a8;
+    }
+    .db-btn.round {
+      border-radius: 21px;
+    }
+
+    .store {
+      text-align: center;
+      border-bottom: 1px solid BLACK;
+    }
+
+    .header {
+      text-align: center;
+      background-color: #3498DB;
+      font-size: 1.5em;
+      color: white;
+      font-family: Jeju Hallasan;
+      height: 8%;
+      line-height: 250%;
+      text-align: center;
+    }
+
+    .backBtn {
+      position: absolute;
+      top: 15px;
+      left: 10px;
+    }
+
+    .logoutBtn{
+      position: absolute;
+      top: 15px;
+      right: 10px;
+    }
+
+    @font-face {
+      font-family: 'Jeju Hallasan';
+      font-style: normal;
+      font-weight: 400;
+      src: url(//fonts.gstatic.com/ea/jejuhallasan/v3/JejuHallasan-Regular.eot);
+      src: url(//fonts.gstatic.com/ea/jejuhallasan/v3/JejuHallasan-Regular.eot?#iefix) format('embedded-opentype'),
+      url(//fonts.gstatic.com/ea/jejuhallasan/v3/JejuHallasan-Regular.woff2) format('woff2'),
+      url(//fonts.gstatic.com/ea/jejuhallasan/v3/JejuHallasan-Regular.woff) format('woff'),
+      url(//fonts.gstatic.com/ea/jejuhallasan/v3/JejuHallasan-Regular.ttf) format('truetype');
+    }
+  </style>
+  <script>
+    setTimeout(function() {
+      var trash = document.getElementById('sa-extension-is-installed');
+      var body = document.getElementById('body');
+      //body.removeChild(trash);
+      body.removeChild(trash);
+      clearTimeout();
+    }, 500);
+    function setSize(e) {
+      e.style.width = window.innerWidth * 0.32 + 'px';
+    }
+  </script>
+</head>
+
+<body id="body">
+  <%if(isOwner == 1){%>
+  <div class="header">
+    <span onclick=location.href="<%=storeMainUrl%>"><%=store%></span>
+  </div>
+  <img class="backBtn" id="backBtn" src="/iconmonstr-arrow-64-24.png" onclick="back();">
+  <img class="logoutBtn" id="logoutBtn" src="/iconmonstr-log-out-9-24.png" onclick=location.href='<%=logoutUrl%>'>
+
+  <script type="text/javascript">
+    function back() {
+      var frame = document.getElementById('timelineBigFrame');
+      history.back();
+    }
+
+    function logout() {
+      location.href = '<%=logoutUrl%>';
+    }
+  </script>
+  <%}%>
+  <table>
+    <tr>
+      <td colspan="3">
+        <div class="store">판매품목</div>
+      </td>
+    </tr>
+    <%if(isOwner == 1){%>
+      <tr>
+        <td colspan="3">
+          <button class="db-btn blue round h48" onclick=location.href='<%=writeProductUrl%>'>메뉴 등록/수정하기</button>
+        </td>
+      </tr>
+      <%}%>
+        <%for (var i = 0; i < contents.length; i += 3) {%>
+      <tr style="height: 100px;">
+        <%if (contents.length - i <= 3) {
+        for (var j = 0; j < contents.length - i; j++) {%>
+        <td class="product" style="background: url(<%=contents[i + j].product_imgUrl%>) no-repeat; background-size: cover; background-position: center;" onclick=location.href='<%=productDetailUrl%>/<%=contents[i + j].owner_auth%>/<%=contents[i + j].number%>'>
+          <span><%=contents[i + j].product%></span><br>
+          <span><%=contents[i + j].price%>원</span>
+          <%if(contents[i + j].sale != null){%><span style="color:red">Event!!</span>
+            <%}%>
+        </td>
+                <%}
+        } else {
+          for (var j = 0; j < 3; j++) {%>
+        <td class="product" style="background: url(<%=contents[i + j].product_imgUrl%>) no-repeat; background-size: cover; background-position: center;" onclick=location.href='<%=productDetailUrl%>/<%=contents[i + j].owner_auth%>/<%=contents[i + j].number%>'>
+          <span><%=contents[i + j].product%></span><br>
+          <span><%=contents[i + j].price%>원</span>
+          <%if(contents[i + j].sale != null){%><span style="color:red">Event!</span>
+            <%}%>
+        </td>
+                <%}
+      }%>
+      </tr>
+          <%}%>
+  </table>
+</body>
+
+</html>

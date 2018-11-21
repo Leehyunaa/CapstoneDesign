@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+  <title>ContentDetail</title>
+  <style>
+    header {
+      text-align: left;
+      background-color: #3498DB;
+      padding: 5px;
+      font-size: 20px;
+      color: white;
+      font-family: sans-serif;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .input-button>input[type="submit"] {
+      background-color: #2A9AF2;
+      border: none;
+      color: #FFFFFF;
+      border-radius: 3px;
+      width: 100px;
+      box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
+      padding: 10px;
+      margin: 0 auto;
+      display: block;
+      cursor: pointer;
+      outline: none;
+      transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    input[type="submit"]:hover {
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    }
+
+    .input-button {
+      width: 100px;
+      margin: 0 auto;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .input-button:active {
+      transform: translate(0px, 5px);
+      -webkit-transform: translate(0px, 5px); //border-bottom: 1px solid;
+    }
+
+    .ripple-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .ripple {
+      background-color: rgba(255, 255, 255, .6);
+      position: absolute;
+      z-index: 10;
+      border-radius: 100%;
+      animation-name: ripple;
+      animation-iteration-count: 1;
+      animation-duration: .55s;
+      width: 10px;
+      height: 10px;
+      transform: translateX(-50%) translateY(-50%);
+      pointer-events: none;
+      animation-timing-function: linear;
+    }
+
+    @keyframes ripple {
+      from {
+        width: 0;
+        height: 0;
+        opacity: 1;
+      }
+      to {
+        width: 300px;
+        height: 300px;
+        opacity: 0;
+      }
+    }
+    .invisible {
+      position: absolute;
+      opacity: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <div>
+      <img src=" <%= contents.url %> " alt="사진" width="100%">
+    </div>
+    <div>
+      <p> <span style="font-weight: bold; font-size: 1.2em;"><%= contents.owner_id %></span> <%= contents.content %> </p>
+      <br>
+      <p>게시일 : <%= contents.date %> </p>
+    </div>
+    <%if(isOwner == 1){%>
+    <form action="<%=deleteContentUrl%>" method="post">
+      <div class="input-button">
+        <input class="invisible" type="text" name="number" value="<%=contents.number%>">
+        <input type="submit" value="게시글 삭제" />
+        <div class="ripple-container"></div>
+      </div>
+    <form>
+    <%}%>
+</body>
+
+</html>

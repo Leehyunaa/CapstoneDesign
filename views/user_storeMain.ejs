@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <title>StoreMainPage</title>
+  <style>
+    html,
+    form,
+    tbody,
+    body,
+    iframe,
+    div {
+      height: 99%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    table {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    td,
+    h1,
+    h2,
+    h4 {
+      margin: 0;
+      padding: 0;
+    }
+
+    .profileBanner {
+      background-color: skyblue;
+      text-align: center;
+      margin-top: 0;
+      padding-bottom: 0;
+    }
+
+    .header {
+      text-align: center;
+      background-color: #3498DB;
+      font-size: 1.5em;
+      color: white;
+      font-family: Jeju Hallasan;
+    }
+
+    .prof {
+      border-bottom: 1px solid skyblue;
+      width: 100%;
+    }
+
+    #review {
+      color: blue;
+      background-color: white;
+    }
+
+    #follower {
+      color: blue;
+      background-color: white;
+    }
+
+    #plus {
+      font-size: 50px;
+      color: skyblue;
+      position: fixed;
+      top: 400px;
+      right: 10px;
+      -webkit-transform: translateZ(0);
+    }
+
+    #sale {
+      font-size: 20px;
+      position: absolute;
+      left: 5px;
+      top: 10px;
+      color: white;
+    }
+
+    .btn {
+      font-size: 12px;
+      color: white;
+      text-align: center;
+      line-height: 2em;
+      border-radius: 4px;
+      background-color: rgb(94, 94, 94);
+    }
+
+    tr {
+      display: table-row;
+    }
+
+    .profileImg {
+      height: 120px;
+      width:120px ;
+      border: 1px solid gold;
+      border-radius: 100px;
+    }
+
+    .backBtn {
+      position: absolute;
+      top: 15px;
+      left: 10px;
+    }
+
+    .logoutBtn{
+      position: absolute;
+      top: 15px;
+      right: 10px;
+    }
+
+    @font-face {
+      font-family: 'Jeju Hallasan';
+      font-style: normal;
+      font-weight: 400;
+      src: url(//fonts.gstatic.com/ea/jejuhallasan/v3/JejuHallasan-Regular.eot);
+      src: url(//fonts.gstatic.com/ea/jejuhallasan/v3/JejuHallasan-Regular.eot?#iefix) format('embedded-opentype'),
+      url(//fonts.gstatic.com/ea/jejuhallasan/v3/JejuHallasan-Regular.woff2) format('woff2'),
+      url(//fonts.gstatic.com/ea/jejuhallasan/v3/JejuHallasan-Regular.woff) format('woff'),
+      url(//fonts.gstatic.com/ea/jejuhallasan/v3/JejuHallasan-Regular.ttf) format('truetype');
+    }
+
+    .form-profile-image {
+      position: absolute;
+      top: 8%;
+      width: 120px;
+      height: 120px;
+    }
+
+    .input-file {
+      position: relative;
+      top: 0px;
+      left: 0px;
+      width: 120px;
+      height: 120px;
+      opacity: 0;
+    }
+  </style>
+  <script>
+    setTimeout(function() {
+      var trash = document.getElementById('sa-extension-is-installed');
+      var body = document.getElementById('body');
+      //body.removeChild(trash);
+      body.removeChild(trash);
+      clearTimeout();
+    }, 500);
+
+    function setSize(node, isWidth, widthRatio, isHeight, heightRatio) {
+	
+      if (isWidth == 1) {
+        node.style.width = window.innerWidth * widthRatio + 'px';
+      }
+      if (isHeight == 1){
+        node.style.height = window.innerHeight * heightRatio + 'px';
+      }
+    }
+	
+  </script>
+
+  <%if(isOwner == 1){%>
+  <script>
+    function onLoad() {
+        document.addEventListener("deviceready", onDeviceReady, false);
+    }
+    function onDeviceReady() {
+       document.addEventListener("backbutton", onBackKey, false);
+    }
+    function onBackKey() {
+        navigator.notification.confirm('종료하시겠습니까?', onBackKeyResult, '종료','취소,종료');
+        //무반응으로 만들려면 위를 주석처리.onBackKeyDownMsg를 써야 하나?
+    }
+    function onBackKeyResult(index) {
+        if(index == 2) {
+          navigator.app.exitApp();
+        }
+    }
+  </script>
+  <%}%>
+
+</head>
+
+<body id="body" onload="setSize(this, 1, 1, 1, 1)" <%if(isOwner == 1){%>onload="onLoad()"<%}%>>
+  <table>
+    <%if(isOwner == 1){%>
+    <img class="backBtn" id="backBtn" src="/iconmonstr-arrow-64-24.png" onclick="back();">
+    <img class="logoutBtn" id="logoutBtn" src="/iconmonstr-log-out-9-24.png" onclick=location.href='<%=logoutUrl%>'>
+    <script type="text/javascript">
+      function back() {
+        var frame = document.getElementById('timelineBigFrame');
+        history.back();
+      }
+      function logout() {
+        location.href = '<%=logoutUrl%>';
+      }
+    </script>
+    <%}%>
+    <tr class="header" style="height: 8%;">
+      <th colspan="3" style="text-align: center;">
+        <span onclick=location.href="<%=storeMainUrl%>"><%=contents.store%></span>
+      </th>
+    </tr>
+    <tr style="height: 128px;">
+      <td style="width: 30%; text-align: center;">
+        <img class="profileImg" src="<%=contents.image_url%>" alt="프로필 사진" id='profimage' />
+        <%if(isOwner == 1){%>
+        <form class="form-profile-image" action=<%=storeProfileImageUrl%> method="post" enctype="multipart/form-data" >
+          <input class="input-file" type="file" onchange="this.form.submit()" name="img_files[]" accept="image/*">
+        </form>
+        <%}%>
+      </td>
+      <td style="width: 70%; text-align: center;">
+        <table style="height: 100%;">
+          <tr>
+            <td>게시물</td>
+            <td>팔로워</td>
+          </tr>
+          <tr>
+            <td style="width: 50%">
+              <%=contentCount%>
+            </td>
+            <td style="width: 50%">
+              <%=followerCount%>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <%if(isOwner == 0){%>
+              <iframe src="<%=followBtnUrl%>" frameborder="0" marginwidth="0" marginheight="0" style="width: 60px; height: 65px;"></iframe>
+              <%} else {%>
+              <button class="btn" onclick=location.href='<%=writeContentUrl%>' style="width: 70%; height: 70%;">글작성</button>
+              <%}%>
+            </td>
+            <td>
+              <button class="btn" onclick=location.href='<%=reviewUrl%>' style="width: 70%; height: 70%;">리뷰</button>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr class="profileBanner" style="height: 4%;" onclick="hideshow()">
+      <td colspan="3">
+        프로필
+      </td>
+    </tr>
+    <tr id="profile" style="height: 20%;">
+      <td colspan="3">
+        <%if(isOwner == 1){%>
+        <p style="border: 1px dotted skyblue" onclick=location.href="<%=storeProfileUrl%>"><%}%>
+          <span>주소 : <%=contents.address1%> <%=contents.address2%> <%=contents.address3%> <%=contents.address4%></span> <br>
+          <span>전화번호 : <%=contents.tel%></span><br>
+          <span>영업시간 : <%=contents.time%></span>
+        <%if(isOwner == 1){%>
+        </p><%}%>
+        <p style="width: 100%; text-align: center"><button class="btn" onclick=location.href='<%=productUrl%>' style="width: 20%; height: 25%;">판매품목</button></p>
+        <script>
+          function hideshow() {
+            var x = document.getElementById("profile");
+            if (x.style.display === "none") {
+              x.style.display = "table-row";
+            } else {
+              x.style.display = "none";
+            }
+          }
+        </script>
+      </td>
+    </tr>
+    <tr style="height: auto;">
+      <td colspan="3" >
+        <iframe src="<%=storeMainContentContainerUrl%>" frameborder="0" height="100%" marginwidth="0" marginheight="0" style="height: 100%;"></iframe>
+      </td>
+    </tr>
+  </table>
+</body>
+
+</html>

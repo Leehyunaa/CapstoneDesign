@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <style>
+    html,
+    form,
+
+    tbody,
+    body,
+    span,
+    iframe {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    table {
+      width: 100%;
+
+    }
+
+    td,
+    h1,
+    h4 {
+      margin: 0;
+      padding: 0;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+
+    .store {
+      text-align: center;
+      border-bottom: 1px solid BLACK;
+    }
+    td{
+	object-fit:cover;
+	}
+  </style>
+  <script>
+    function setSize(e) {
+      e.style.width = window.innerWidth * 0.32 + 'px';
+    }
+  </script>
+</head>
+
+<body>
+  <div class="store">게시글</div>
+  <table>
+    <%for (var i = 0; i < contents.length; i += 3) {%>
+      <tr>
+        <%if (contents.length - i <= 3) {
+        for (var j = 0; j < contents.length - i; j++) {%>
+          <td>
+            <img src="<%=contents[i + j].url%>" alt="<%=contents[i + j].content%>" onclick="location.href = '<%=storeMainContentDetailUrl%>/<%=contents[i + j].number%>'" onload="setSize(this)">
+          </td>
+          <%}
+      } else {
+        for (var j = 0; j < 3; j++) {%>
+            <td>
+              <img src="<%=contents[i + j].url%>" alt="<%=contents[i + j].content%>" onclick="location.href = '<%=storeMainContentDetailUrl%>/<%=contents[i + j].number%>'" onload="setSize(this)">
+            </td>
+            <%}
+      }%>
+      </tr>
+      <%}%>
+  </table>
+</body>
+
+</html>

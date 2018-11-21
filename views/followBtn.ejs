@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <title>followBtn</title>
+</head>
+<style>
+  html,
+  form,
+  tbody,
+  body,
+  iframe,
+  div {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  table {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+
+  td,
+  h1,
+  h2,
+  h4 {
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    display: grid;
+  }
+
+  p {
+    background-color: skyblue;
+    text-align: center;
+    margin-top: 0;
+    padding-bottom: -5px;
+  }
+
+  .header {
+    text-align: center;
+    background-color: #3498DB;
+    padding: 5px;
+    font-size: 20px;
+    color: white;
+    font-family: sans-serif;
+    font-weight: bold;
+  }
+
+  .prof {
+    border-bottom: 1px solid skyblue;
+    width: 100%;
+  }
+
+  #review {
+    color: blue;
+    background-color: white;
+  }
+
+  #follower {
+    color: blue;
+    background-color: white;
+  }
+
+  #plus {
+    font-size: 50px;
+    color: skyblue;
+    position: fixed;
+    top: 400px;
+    right: 10px;
+    -webkit-transform: translateZ(0);
+  }
+
+  #sale {
+    font-size: 20px;
+    position: absolute;
+    left: 5px;
+    top: 10px;
+    color: white;
+  }
+
+  .btn {
+    font-size: 12px;
+    color: white;
+    text-align: center;
+    line-height: 2em;
+    border-radius: 4px;
+    background-color: rgb(94, 94, 94);
+  }
+
+  tr {
+    display: table-row;
+  }
+
+  .profileImg {
+    height: 25%;
+    border: 1px solid gold;
+    border-radius: 100px;
+  }
+
+  .button {
+    background-image: -webkit-linear-gradient(top, #f4f1ee, #fff);
+    background-image: linear-gradient(top, #f4f1ee, #fff);
+    border-radius: 50%;
+    box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, .3), inset 0px 4px 1px 1px white, inset 0px -3px 1px 1px rgba(204, 198, 197, .5);
+    float: left;
+    height: 50px;
+    margin: 0 0 0px 5px;
+    position: relative;
+    width: 50px;
+    -webkit-transition: all .1s linear;
+    transition: all .1s linear;
+  }
+
+  .button:after {
+    color: #f94e66;
+    content: "";
+    display: block;
+    font-size: 30px;
+    height: 30px;
+    text-decoration: none;
+    text-shadow: 0px -1px 1px #bdb5b4,
+    1px 1px 1px white;
+    position: absolute;
+    width: 30px;
+  }
+
+
+  .heart:after {
+    <%if(isFollow) {%>
+    content: "❤";
+    <%} else {%>
+    content: "";
+    <%}%>
+    left: 10px;
+    top: 7px;
+  }
+
+  .button:hover {
+    background-image: -webkit-linear-gradient(top, #fff, #f4f1ee);
+    background-image: linear-gradient(top, #fff, #f4f1ee);
+    color: #0088cc;
+  }
+
+  .heart:hover:after {
+    color: #f94e66;
+    text-shadow: 0px 0px 6px #f94e66;
+  }
+
+  .button:active {
+    background-image: -webkit-linear-gradient(top, #efedec, #f7f4f4);
+    background-image: linear-gradient(top, #efedec, #f7f4f4);
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, .4), inset 0px -3px 1px 1px rgba(204, 198, 197, .5);
+  }
+
+  .button:active:after {
+    color: #dbd2d2;
+    text-shadow: 0px -1px 1px #bdb5b4, 0px 1px 1px white;
+  }
+</style>
+<script>
+  function setSize(e) {
+    e.style.height = window.innerHeight * 0.5 + 'px';
+    //window.parent.
+  }
+
+  function isfollowColor(e) {
+    e.style.color = '#f94e66';
+  }
+</script>
+
+<body>
+    <a class="button heart" onclick="location.href='<%=followUrl%>'">
+    </a>
+</body>
+
+</html>

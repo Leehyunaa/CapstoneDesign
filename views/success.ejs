@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>success</title>
+  <style>
+    html,
+    form,
+    body,
+      {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    table,
+    tr,
+    tbody,
+    div {
+      width: 100%;
+    }
+
+    td {
+      margin: 0;
+      padding: 0;
+    }
+
+    .header {
+      text-align: center;
+      background-color: #3498DB;
+      font-size: 20px;
+      color: white;
+      font-family: sans-serif;
+      font-weight: bold;
+      height: 8%;
+    }
+
+    .success {
+      height: 100%;
+      text-align: center;
+      background-color: background-color: #3498DB;
+      vertical-align: middle;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 60px;
+    }
+  </style>
+  <script>
+    setTimeout(function() {
+      location.href = "<%=success%>"
+      clearTimeout();
+    }, 1000);
+  </script>
+</head>
+
+<body>
+  <table style="height: 100%;">
+    <tr>
+      <td>
+        <div class="success">
+          성공!<br> 감사합니다.
+        </div>
+      </td>
+    </tr>
+  </table>
+</body>
+
+</html>

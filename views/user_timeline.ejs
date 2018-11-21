@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="kr" dir="ltr">
+
+<head>
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+
+  <meta charset="utf-8">
+  <style>
+    html,
+    form,
+    table,
+    tbody,
+    body,
+    iframe {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    td,
+    h1,
+    h2,
+    h4 {
+      margin: 0;
+      padding: 0;
+    }
+
+    #footer>td {
+      width: 25%;
+      text-align: center;
+    }
+
+    .title {
+      background-color: #3498DB;
+      color: white;
+      text-align: center;
+    }
+
+    span {
+      font-size: 20px;
+    }
+
+    .backBtn {
+      position: absolute;
+      top: 15px;
+      left: 10px;
+    }
+
+    .logoutBtn{
+      position: absolute;
+      top: 15px;
+      right: 10px;
+    }
+  </style>
+  <script>
+    setTimeout(function() {
+      var trash = document.getElementById('sa-extension-is-installed');
+      var body = document.getElementById('body');
+      //body.removeChild(trash);
+      trash.parentNode.removeChild(trash);
+      clearTimeout();
+    }, 10);
+
+    function setSize() {
+      var img1 = document.getElementById('img1');
+      img1.style.height = window.innerHeight * 0.04 + 'px';
+      var img2 = document.getElementById('img2');
+      img2.style.height = window.innerHeight * 0.04 + 'px';
+      var img3 = document.getElementById('img3');
+      img3.style.height = window.innerHeight * 0.04 + 'px';
+      var img4 = document.getElementById('img4');
+      img4.style.height = window.innerHeight * 0.04 + 'px';
+      var logo = document.getElementById('logo');
+      logo.style.height = window.innerHeight * 0.06 + 'px';
+    }
+    window.onload = function() {
+      setSize();
+      window.addEventListener('resize', setSize);
+    }
+
+    function homeFrame() {
+      var frame = document.getElementById('timelineBigFrame');
+      frame.src = "<%=iframeUrl%>";
+    }
+
+    function searchFrame() {
+      var frame = document.getElementById('timelineBigFrame');
+      frame.src = "<%=searchUrl%>";
+    }
+
+    function followsFrame() {
+      var frame = document.getElementById('timelineBigFrame');
+      frame.src = "<%=followsUrl%>";
+    }
+
+    function userInfoFrame() {
+      var frame = document.getElementById('timelineBigFrame');
+      frame.src = "<%=userInfoUrl%>";
+    }
+
+    function back() {
+      var frame = document.getElementById('timelineBigFrame');
+      history.back();
+    }
+
+    function logout() {
+      location.href = '<%=logoutUrl%>';
+    }
+    function onLoad() {
+        document.addEventListener("deviceready", onDeviceReady, false);
+    }
+    function onDeviceReady() {
+       document.addEventListener("backbutton", onBackKey, false);
+    }
+    function onBackKey() {
+        navigator.notification.confirm('종료하시겠습니까?', onBackKeyResult, '종료','취소,종료');
+        //무반응으로 만들려면 위를 주석처리.onBackKeyDownMsg를 써야 하나?
+    }
+    function onBackKeyResult(index) {
+        if(index == 2) {
+          navigator.app.exitApp();
+        }
+    }
+  </script>
+</head>
+
+<body id="body">
+  <table style="border-collapse: collapse;" onload="onLoad()">
+    <img class="backBtn" id="backBtn" src="/iconmonstr-arrow-64-24.png" onclick="back();">
+    <img class="logoutBtn" id="logoutBtn" src="/iconmonstr-log-out-9-24.png" onclick=location.href='<%=logoutUrl%>'>
+    <tr id="header" style="height: 8%;">
+      <td class="title" colspan="4">
+        <img id="logo" src="/OnceADayLogo.png" style="">
+      </td>
+    </tr>
+    <tr id="timeline">
+      <td colspan="4"><iframe id='timelineBigFrame' src="<%=iframeUrl%>" frameborder="0" width="100%" height="100%" marginwidth="0" marginheight="0"></iframe></td>
+    </tr>
+    <tr id="footer" style="height: 8%; background-color: #f2bcba;">
+      <td style="border-top: 1px solid black;">
+        <span id="img1" class="glyphicon glyphicon-home" aria-hidden="true" onload="setSize();" onclick="homeFrame()"></span>
+      </td>
+      <td style="border-top:1px solid black;">
+        <span id="img2" class="glyphicon glyphicon-search" aria-hidden="true" onload="setSize();" onclick="searchFrame()"></span>
+      </td>
+
+      <td style="border-top: 1px solid black;">
+        <span id="img3" class="glyphicon glyphicon-heart" aria-hidden="true" onload="setSize();" onclick="followsFrame()"></span>
+      </td>
+      <td style="border-top: 1px solid black;">
+        <span id="img4" class="glyphicon glyphicon-user" aria-hidden="true" onload="setSize();" onclick="userInfoFrame()"></span>
+      </td>
+    </tr>
+  </table>
+</body>
+
+</html>

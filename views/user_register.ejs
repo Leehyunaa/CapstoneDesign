@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<style>
+		html {
+			height: 100%;
+			width: 100%;
+		}
+
+		body {
+			//background-color: #F1F1F1;
+			height: 100%;
+			width: 100%;
+			margin: 0;
+		}
+
+		form {
+			height: 100%;
+			width: 100%;
+		}
+
+		table {
+			height: 100%;
+			width: 100%;
+		}
+
+		tbody {
+			height: 100%;
+			width: 100%;
+		}
+
+		td {
+			padding: 0;
+		}
+
+		.banner {
+			height: 30%;
+			width: 100%;
+		}
+
+		form h4 {
+			font-size: 32px;
+			color: #333333;
+			font-family: Roboto, arial, sans-serif;
+			display: block;
+			text-align: center;
+			margin-top: 20px;
+		}
+
+		.floating-input {
+			//padding: 10px;
+			display: block;
+			width: 300px;
+			margin: 30px auto;
+		}
+
+		.floating-input label {
+			position: absolute;
+			font-family: Roboto, arial, sans-serif;
+			color: #757575;
+			font-size: 18px;
+			margin-top: -30px;
+			transition: all .2s cubic-bezier(0.4, 0, 0.2, 1);
+			cursor: text;
+			margin-left: 0;
+			display: block;
+		}
+
+		.floating-input input {
+			border: none;
+			border-bottom: 1px solid #757575;
+			outline: none;
+			width: 300px;
+			padding: 5px 0;
+			font-size: 18px;
+			transition: all .2s cubic-bezier(0.4, 0, 0.2, 1);
+			background-color: transparent;
+		}
+
+		.floating-input input:valid+label {
+			margin-top: -50px;
+			font-size: 12px;
+			color: #555555;
+		}
+
+		.floating-input input:focus {
+			border-bottom: 1px solid #2A9AF2;
+			box-shadow: 0px 1px 0px 0px #2A9AF2;
+		}
+
+		.floating-input input:focus+label {
+			margin-top: -50px !important;
+			color: #2A9AF2 !important;
+			font-size: 12px !important;
+		}
+
+		.input-button>input[type="submit"] {
+			background-color: #2A9AF2;
+			border: none;
+			color: #FFFFFF;
+			border-radius: 3px;
+			width: 100px;
+			box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
+			padding: 10px;
+			margin: 0 auto;
+			display: block;
+			cursor: pointer;
+			outline: none;
+			transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+		}
+
+		input[type="submit"]:hover {
+			box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+		}
+
+		.input-button {
+			width: 100px;
+			margin: 0 auto;
+			position: relative;
+			cursor: pointer;
+		}
+
+		.input-button:active {
+			transform: translate(0px, 5px);
+			-webkit-transform: translate(0px, 5px); //border-bottom: 1px solid;
+		}
+
+		.ripple-container {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			pointer-events: none;
+			overflow: hidden;
+		}
+
+		.ripple {
+			background-color: rgba(255, 255, 255, .6);
+			position: absolute;
+			z-index: 10;
+			border-radius: 100%;
+			animation-name: ripple;
+			animation-iteration-count: 1;
+			animation-duration: .55s;
+			width: 10px;
+			height: 10px;
+			transform: translateX(-50%) translateY(-50%);
+			pointer-events: none;
+			animation-timing-function: linear;
+		}
+
+		@keyframes ripple {
+			from {
+				width: 0;
+				height: 0;
+				opacity: 1;
+			}
+			to {
+				width: 300px;
+				height: 300px;
+				opacity: 0;
+			}
+		}
+
+		.row {
+			vertical-align: top;
+		}
+
+		.btn-register,
+		.div-register-button {
+			vertical-align: top;
+			height: 100%;
+			width: 100%;
+			margin: 0;
+			padding: 0;
+		}
+
+		.btn-register {
+			background-color: white;
+			border: 0;
+			border-top: 1px solid black;
+		}
+
+		h3 {
+			text-align: center;
+			font-size: 32px;
+		}
+
+		h4 {
+			text-align: center;
+			font-size: 25px;
+		}
+	</style>
+	<script type="text/javascript">
+		function tocheckpw1() {
+			var pw = document.getElementById("password");
+			var pwck = document.getElementById("password-check");
+
+			if (pw.value != pwck.value) {
+				pw.setAttribute('value', '');
+				pwck.setAttribute('value', '');
+				alert('비밀번호가 틀렸습니다. 다시 입력해 주세요');
+				return false;
+			}
+		}
+	</script>
+</head>
+
+<body>
+	<form action="<%=registerPostUrl%>" onsubmit="return tocheckpw1()" method="post">
+		<table>
+			<tbody>
+				<tr class="banner">
+					<td>
+						<h3>회원가입</h3>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="floating-input">
+							<input required id='id' type="text" name="<%=idBoxName%>"><label for="id">아이디</label>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="floating-input">
+							<input required id='password' type="password" name="<%=passwordBoxName%>"><label for="password">비밀번호</label>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="floating-input">
+							<input required id='password-check' type="password"><label for="password-check">비밀번호 확인</label>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="floating-input">
+							<input required id="name" type="text" name="<%=nameBoxName%>"><label for="name">이름</label>
+						</div>
+					</td>
+				</tr>
+				<tr class="row">
+					<td>
+						<div class="input-button">
+							<input type="submit" value="회원가입" />
+						</div>
+					</td>
+				</tr>
+				<tr></tr>
+				<tr></tr>
+				<tr></tr>
+				<tr></tr>
+			</tbody>
+		</table>
+	</form>
+	</script>
+</body>
+
+</html>

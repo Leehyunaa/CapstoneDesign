@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <style>
+    html,
+    form,
+    body,{
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+                table, tr, tbody{
+                        width: 100%;
+                }
+    td{
+      margin: 0;
+      padding: 0;
+    }
+
+    .header {
+      text-align: center;
+      background-color: #3498DB;
+      font-size: 20px;
+      color: white;
+      font-family: sans-serif;
+      font-weight: bold;
+                        height: 8%;
+    }
+	p{
+	 border-bottom:1px solid black;
+	}
+        </style>
+
+
+<title>FollowerView</title>
+</head>
+<body>
+<div class="top"> <p>관심 가게</p> </div>
+        <table>
+                <tbody>
+                        <% follow.forEach(function(flist){ %>
+                        <tr>
+				<!-- a href="storeMain/<%=flist.owner_id%>" -->
+                            <td>
+                             <img src="<%= flist.image_url %>" alt="사진" width="100" height="100" style="border-radius:50%; object-fit:cover;" />
+                              </td>
+                               <td>
+                                        <div class="list">
+                                 <%= flist.owner_id %><br>
+				 <%= flist.owner_name %>
+                                </div>
+                                </td>
+                        </tr>
+                         <% }); %>
+                </tbody>
+        </table>
+
+</body>
+</html>
+

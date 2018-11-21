@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="kr" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+
+  <style>
+    html, form, table, tbody, body {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    td {
+      margin: 0;
+      padding: 0;
+    }
+
+    .floating-input {
+      display: block;
+      width: 300px;
+      margin: 30px auto;
+    }
+
+    .floating-input label {
+      position: absolute;
+      font-family: Roboto, arial, sans-serif;
+      color: #757575;
+      font-size: 18px;
+      margin-top: -30px;
+      transition: all .2s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: text;
+      margin-left: 0;
+      display: block;
+    }
+
+    .floating-input input {
+      border: none;
+      border-bottom: 1px solid #757575;
+      outline: none;
+      width: 300px;
+      padding: 5px 0;
+      font-size: 18px;
+      transition: all .2s cubic-bezier(0.4, 0, 0.2, 1);
+      background-color: transparent;
+    }
+
+    .floating-input input:valid+label {
+      margin-top: -50px;
+      font-size: 12px;
+      color: #555555;
+    }
+
+    .floating-input input:focus {
+      border-bottom: 1px solid #2A9AF2;
+      box-shadow: 0px 1px 0px 0px #2A9AF2;
+    }
+
+    .floating-input input:focus+label {
+      margin-top: -50px !important;
+      color: #2A9AF2 !important;
+      font-size: 12px !important;
+    }
+
+    .input-button>input[type="submit"] {
+      background-color: #2A9AF2;
+      border: none;
+      color: #FFFFFF;
+      border-radius: 3px;
+      width: 100px;
+      box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
+      padding: 10px;
+      margin: 0 auto;
+      display: block;
+      cursor: pointer;
+      outline: none;
+      transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    input[type="submit"]:hover {
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    }
+
+    .input-button {
+      width: 100px;
+      margin: 0 auto;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .input-button:active {
+      transform: translate(0px, 5px);
+      -webkit-transform: translate(0px, 5px); //border-bottom: 1px solid;
+    }
+
+    .ripple-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .ripple {
+      background-color: rgba(255, 255, 255, .6);
+      position: absolute;
+      z-index: 10;
+      border-radius: 100%;
+      animation-name: ripple;
+      animation-iteration-count: 1;
+      animation-duration: .55s;
+      width: 10px;
+      height: 10px;
+      transform: translateX(-50%) translateY(-50%);
+      pointer-events: none;
+      animation-timing-function: linear;
+    }
+
+    @keyframes ripple {
+      from {
+        width: 0;
+        height: 0;
+        opacity: 1;
+      }
+      to {
+        width: 300px;
+        height: 300px;
+        opacity: 0;
+      }
+    }
+
+    .header {
+      text-align: center;
+      background-color: #3498DB;
+      font-size: 1.5em;
+      color: white;
+      font-family: Jeju Hallasan;
+      height: 8%;
+      line-height: 250%;
+      text-align: center;
+    }
+
+    .backBtn {
+      position: absolute;
+      top: 15px;
+      left: 10px;
+    }
+
+    .logoutBtn {
+      position: absolute;
+      top: 15px;
+      right: 10px;
+    }
+
+    @font-face {
+      font-family: 'Jeju Hallasan';
+      font-style: normal;
+      font-weight: 400;
+      src: url(//fonts.gstatic.com/ea/jejuhallasan/v3/JejuHallasan-Regular.eot);
+      src: url(//fonts.gstatic.com/ea/jejuhallasan/v3/JejuHallasan-Regular.eot?#iefix) format('embedded-opentype'),
+      url(//fonts.gstatic.com/ea/jejuhallasan/v3/JejuHallasan-Regular.woff2) format('woff2'),
+      url(//fonts.gstatic.com/ea/jejuhallasan/v3/JejuHallasan-Regular.woff) format('woff'),
+      url(//fonts.gstatic.com/ea/jejuhallasan/v3/JejuHallasan-Regular.ttf) format('truetype');
+    }
+  </style>
+  <body>
+    <%if(isOwner == 1){%>
+    <div class="header">
+      <span onclick=location.href="<%=storeMainUrl%>"><%=contents[0].store%></span>
+    </div>
+    <img class="backBtn" id="backBtn" src="/iconmonstr-arrow-64-24.png" onclick="back();">
+    <img class="logoutBtn" id="logoutBtn" src="/iconmonstr-log-out-9-24.png" onclick=location.href='<%=logoutUrl%>'>
+    <script type="text/javascript">
+      function back() {
+        var frame = document.getElementById('timelineBigFrame');
+        history.back();
+      }
+
+      function logout() {
+        location.href = '<%=logoutUrl%>';
+      }
+    <%}%>
+    </script>
+    <table>
+      <form action="<%=writeProductUrl%>" method="post">
+        <tr>
+          <td>
+            <div class="floating-input">
+              <input required id="product" type="text" name="product"/>
+              <label for="product">상품명</label>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="floating-input">
+              <input required id="price" type="number" name="price" step="10"/>
+              <label for="price">가격</label>
+            </div>
+          </td>
+        </tr>
+        <tr class="row">
+          <td>
+            <div class="input-button">
+              <input type="submit" value="다음">
+            </div>
+          </td>
+        </tr>
+      </form>
+    </table>
+  </body>
+</html>

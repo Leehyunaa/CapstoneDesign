@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+
+<title>saleProduct</title>
+
+<script>  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<style>
+        .window{
+         position: fixed;
+        width: 40%;
+        left: 50%;
+        margin-left: -20%; 
+        height: 300px;
+        top: 50%;
+        margin-top: -150px;
+        overflow: auto;
+        border:1px solid black;
+        }
+h3{
+  text-align:center;
+  font-family:sans-serif;
+  font:40px;
+}
+.close{
+  position:absolute;
+  top:50%;
+  left:30%;
+  width:80px;
+  background-color:white;
+  color:black;
+  font:20px;
+}
+</style>
+</head>
+<body>
+	<div id="mask"></div>
+	<div>
+	<h3>welcome!</h3>
+	<input type="button" onclick=location.href='<%=LoginUrl%>' class="close" value="확인"/>
+	</div>
+	<script>
+	</script>
+</body>
+</html>
