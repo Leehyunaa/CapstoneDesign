@@ -856,7 +856,6 @@ router.get(successUrl, function (req, res) {
 
 Upload = require('./s3upload/uploadservice')
 router.post(userProfileImageUploadUrl, function (req, res) {
-    //var content=req.body.content;
     console.log('1, upload');
 
     var tasks = [
@@ -866,7 +865,6 @@ router.post(userProfileImageUploadUrl, function (req, res) {
             })
         }, function (files, callback) {
             Upload.s3(files, function (err, result) {
-                // console.log(result);
                 callback(err, files);
                 const userAuth = req.session.passport.user;
                 var sql = `UPDATE user SET image_url=? WHERE user_auth=` + mysql.escape(userAuth);
@@ -882,10 +880,9 @@ router.post(userProfileImageUploadUrl, function (req, res) {
             });
         }
     ]
-    // 사용자에게 업로드 메세지 전달
+    // 업로드 시 mainUserInfo로 redirect
     async.waterfall(tasks, function (err, result) {
         if (!err) {
-            //res.json({success:true, msg:'업로드 성공'})
             res.redirect(mainUserInfoUrl);
         } else {
             res.redirect(mainUserInfoUrl);

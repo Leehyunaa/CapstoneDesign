@@ -2,9 +2,9 @@ var express = require('express');
 var router = express();
 var mysql = require('mysql');
 var async = require('async');
-var session = require('express-session');// 세션 사용을 위한 모듈
+var session = require('express-session');
 var MySQLStore = require('express-mysql-session')(session);
-var bodyParser = require('body-parser');// POST 방식 전송을 위한 모듈
+var bodyParser = require('body-parser');
 var bkfd2Password = require("pbkdf2-password");
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
@@ -57,10 +57,10 @@ router.use(session({
 router.use(passport.initialize());
 router.use(passport.session());
 router.get('/count', function (req, res) {
-    if (req.session.count) {//세션 값이 있을때
+    if (req.session.count)
         req.session.count++;
-    } else {//처음 접속했을 때 즉 세션 값이 없을 때
-        req.session.count = 1; //세션을 만듬
+    } else {
+        req.session.count = 1;
     }
     res.send('count : ' + req.session.count);
 });
@@ -71,26 +71,26 @@ const loginUrl = `/owner/login`;
 const logoutUrl = `/owner/logout`;
 const registerUrl = `/owner/register`;
 const storeMainUrl = `/owner/storeMain`;
-const storeMainContentContainerUrl = `/owner/storeMain/container`; //게시물 리스트
-const storeMainContentDetailUrl = `/owner/storeMain/container/detail`; // 게시물 글작성
-const storeMainContentUploadUrl = `/owner/storeMain/upload/content`;//게시물 사진
-const storeProfileUrl = `/owner/profile`; //가게 프로필
-const storeProfileImageUrl = `/owner/profile/image`; //가게 프로필 사진
-const storeMainFollowerUrl = `/owner/storeMain/follower`; // 팔로워
-const storeMainSaleUrl = `/owner/storeMain/sale`; //판매품목
-const reviewListUrl = `/owner/storeMain/review/list`; //리뷰 버튼
-const reviewListContainerUrl = `/owner/storeMain/review/list/container`; // 리뷰 리스트
-const reviewDetailUrl = `/owner/storeMain/review/detail`; //리뷰 글
-const writeContentUrl = `/owner/storeMain/write`; //누르면 글
-const writeContentImageUrl = `/owner/storeMain/write/image`; // 누르면 사진
+const storeMainContentContainerUrl = `/owner/storeMain/container`;
+const storeMainContentDetailUrl = `/owner/storeMain/container/detail`;
+const storeMainContentUploadUrl = `/owner/storeMain/upload/content`;
+const storeProfileUrl = `/owner/profile`;
+const storeProfileImageUrl = `/owner/profile/image`;
+const storeMainFollowerUrl = `/owner/storeMain/follower`;
+const storeMainSaleUrl = `/owner/storeMain/sale`;
+const reviewListUrl = `/owner/storeMain/review/list`;
+const reviewListContainerUrl = `/owner/storeMain/review/list/container`;
+const reviewDetailUrl = `/owner/storeMain/review/detail`;
+const writeContentUrl = `/owner/storeMain/write`;
+const writeContentImageUrl = `/owner/storeMain/write/image`;
 const uploadUrl = `/owner/storeMain/upload`;
 
-const productUrl = `/owner/main/store/product`; // 판매 품목 리스트
-const productDetailUrl = `/owner/main/store/product/detail`;  // 누르면 글
-const writeProductUrl = `/owner/main/store/product/write`; // 판매 품목 글 작성
-const writeProductImageUrl = `/owner/main/store/product/write/image`; // 판매 품목 사진
-const writeBargain = `/owner/main/store/product/write/bargain`; // 할인정보 등록
-const deleteBargain = `/owner/main/store/product/delete/bargain`; // 할인 정보 삭제
+const productUrl = `/owner/main/store/product`;
+const productDetailUrl = `/owner/main/store/product/detail`;
+const writeProductUrl = `/owner/main/store/product/write`;
+const writeProductImageUrl = `/owner/main/store/product/write/image`;
+const writeBargain = `/owner/main/store/product/write/bargain`;
+const deleteBargain = `/owner/main/store/product/delete/bargain`;
 const commentUrl = `/owner/content/comment`;
 const successUrl = `/success`;
 const deleteContentUrl = `/owner/delete/content`;
@@ -150,9 +150,7 @@ router.get(logoutUrl, function (req, res) {
 passport.serializeUser(function (user, done) {
     console.log('serializeUser', user);
     done(null, user.owner_auth);
-}); //owner_auth값을 넘겨주어 유저를 찾는데 사용, 이 데이터는 세션에 저장됨
-    //serializeUser실행 후 deserializeUser메소드 실행
-    //즉 id는 user.owner_auth
+});
 passport.deserializeUser(function (id, done) {
     //console.log('deserializeUser', id);
     var sql = 'SELECT * FROM owner WHERE owner_auth=';
@@ -183,19 +181,19 @@ passport.use(new LocalStrategy({
                 return done('There is no user.');
             }
             var user = results[0];
-            return hasher({ //비밀번호 암호화
+            return hasher({
                 password: pwd,
                 salt: user.salt
             }, function (err, pass, salt, hash) {
-                if (hash === user.owner_password) {//저장된 해쉬값과 만든 해쉬값이 같으면 인증 성공
+                if (hash === user.owner_password) {
                     console.log('LocalStrategy', user);
                     console.log('login success');
-                    done(null, user);//로그인 성공을 의미
+                    done(null, user);
                 } else {
                     console.log('incorrect password');
                     console.log(hash);
                     console.log(user.owner_password);
-                    done(null, false);//로그인 실패를 의미
+                    done(null, false);
                 }
             });
         });
@@ -544,6 +542,9 @@ router.post(writeProductUrl, function (req, res) {
     });
 });
 
+/**
+ * 메뉴 수
+ */
 
 router.get(productDetailUrl + '/:owner_auth/:number', function (req, res) {
     var ownerAuth = req.session.passport.user;
@@ -601,6 +602,10 @@ router.post(deleteBargain, function (req, res) {
     });
 });
 
+/**
+ * 게시물 리스트
+ */
+
 router.get(storeMainContentContainerUrl, function (req, res) {
     console.log('1, storeMainContainer');
     const ownerAuth = req.session.passport.user;
@@ -615,6 +620,11 @@ router.get(storeMainContentContainerUrl, function (req, res) {
         });
     });
 });
+
+/**
+ * 게시물 수
+ */
+
 router.get(storeMainContentDetailUrl + '/:number', function (req, res) {
     console.log('1, contentDetail');
     const ownerAuth = req.session.passport.user;
@@ -702,7 +712,11 @@ router.get(reviewListUrl, function (req, res) {
     });
     console.log('4, review list after callback');
 });
-//Reviews Container
+
+/**
+ * 리뷰 글 보기
+ */
+
 router.get(reviewListContainerUrl, function (req, res) {
     console.log('1, reviewContainer');
     const ownerAuth = req.session.passport.user;
@@ -726,7 +740,11 @@ router.get(reviewListContainerUrl, function (req, res) {
         });
     });
 });
-//Review Detail
+
+/**
+ * 리뷰 수
+ */
+
 router.get(reviewDetailUrl + '/:number', function (req, res) {
     console.log('1, reviewDetail');
     const ownerAuth = req.session.passport.user;
@@ -762,7 +780,6 @@ router.get(reviewDetailUrl + '/:number', function (req, res) {
 
 var Upload = require('./s3upload/uploadservice');
 router.post(storeProfileImageUrl, function (req, res) {
-    //var content=req.body.content;
     console.log('1, upload');
     var tasks = [
         function (callback) {
@@ -790,10 +807,9 @@ router.post(storeProfileImageUrl, function (req, res) {
             });
         }
     ];
-    //사용자에게 업로드 여부 메세지 전송
+    //업로드 성공시 storeMain으로 redirect
     async.waterfall(tasks, function (err, result) {
         if (!err) {
-            //res.json({success:true, msg:'업로드 성공'})
             res.redirect(storeMainUrl);
         } else {
             res.redirect(storeMainUrl);
@@ -801,7 +817,6 @@ router.post(storeProfileImageUrl, function (req, res) {
     });
 });
 router.post(writeContentImageUrl + '/:number', function (req, res) {
-    //var content=req.body.content;
     var ownerAuth = req.session.passport.user;
     console.log('1, upload');
     var tasks = [
@@ -830,10 +845,8 @@ router.post(writeContentImageUrl + '/:number', function (req, res) {
             });
         }
     ];
-    //사용자에게 알려줌
     async.waterfall(tasks, function (err, result) {
         if (!err) {
-            //res.json({success:true, msg:'업로드 성공'})
             res.redirect(storeMainUrl);
         } else {
             res.redirect(storeMainUrl);
@@ -841,7 +854,6 @@ router.post(writeContentImageUrl + '/:number', function (req, res) {
     });
 });
 router.post(writeProductImageUrl + '/:number', function (req, res) {
-    //var content=req.body.content;
     console.log('1, upload');
     var tasks = [
         function (callback) {
@@ -875,12 +887,10 @@ router.post(writeProductImageUrl + '/:number', function (req, res) {
             });
         }
     ];
-    //사용자에게 알려줌
     async.waterfall(tasks, function (err, result) {
         console.log('7, upload');
         if (!err) {
             console.log('8, upload');
-            //res.json({success:true, msg:'업로드 성공'})
             res.redirect(productUrl);
         } else {
             console.log('9, upload');
@@ -888,6 +898,10 @@ router.post(writeProductImageUrl + '/:number', function (req, res) {
         }
     });
 });
+
+/**
+ * 서버 연결
+ */
 
 router.listen(3000, function () {
     console.log('connect 3000 port owner server');

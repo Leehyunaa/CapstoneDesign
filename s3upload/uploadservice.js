@@ -47,22 +47,7 @@ Upload.s3 = function (files, callback) {
     s3.upload(params, function (err, result) {
         callback(err, result);
 
-/*connection.connect(function(err){
-if(!err) {
-    console.log("Database is connected ... \n\n");
-} else {
-    console.log("Error connecting database ... \n\n");
-}
-});
-var sql='insert into content_list (owner_id, url) values ("hyk1031",?)';
-var params=result;
 
-connection.query(sql,params.Location,function(err, rows, fields) {
-if(err){
-console.log(err);
-}else{
-console.log(rows);}
-});*/
     });
 };
 module.exports=Upload;
